@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INISEOL · 개인스킨 주문</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Lora:ital,wght@1,600;1,700&family=Poppins:wght@500;600;700&display=swap">
+<style>
+:root{--b:#3D6FD6;--b2:#6E98E8;--b3:#A9C5F3;--b4:#D6E4FB;--ink:#2F4E8F;--soft:#6C86BD}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Gowun Dodum','Noto Sans KR',system-ui,sans-serif;color:var(--ink);min-height:100vh;
+  background:linear-gradient(170deg,#EEF3FC 0%,#DCE7FA 45%,#BFD4F6 100%) fixed;overflow-x:hidden;padding-bottom:96px}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.55) 1.5px,transparent 1.5px),linear-gradient(90deg,rgba(255,255,255,.55) 1.5px,transparent 1.5px);
+  background-size:36px 36px;-webkit-mask-image:radial-gradient(ellipse 80% 40% at 50% 0%,#000 30%,transparent 80%);mask-image:radial-gradient(ellipse 80% 40% at 50% 0%,#000 30%,transparent 80%)}
+.scal{height:26px;background:radial-gradient(circle at 50% 0,#fff 14px,transparent 15px) repeat-x;background-size:32px 26px}
+.wrap{max-width:600px;margin:0 auto;padding:6px 16px 30px;position:relative}
+.deco{position:absolute;pointer-events:none}
+header{text-align:center;padding:10px 0 4px}
+.chip{display:inline-block;background:var(--b);color:#fff;font-family:Poppins,sans-serif;font-weight:700;font-size:11px;letter-spacing:2.5px;padding:5px 16px;border-radius:20px}
+.logo{font-family:Lora,serif;font-style:italic;font-weight:700;font-size:58px;line-height:1.05;color:var(--b);transform:skewX(-8deg);text-shadow:0 0 18px #fff;margin-top:6px}
+.sub{font-family:Lora,serif;font-style:italic;color:var(--b2);font-size:18px}
+.win{margin-top:16px;border-radius:24px;background:rgba(255,255,255,.35);border:4px solid #fff;outline:2px solid rgba(61,111,214,.45);outline-offset:2px;box-shadow:0 16px 40px rgba(61,111,214,.18);overflow:hidden}
+.bar{display:flex;align-items:center;gap:8px;height:44px;padding:0 14px;background:linear-gradient(90deg,#8DB0F0,#3D6FD6);color:#fff;font-family:Poppins,sans-serif;font-weight:600;font-size:15px}
+.bar .t{flex:1}.bar i{width:24px;height:24px;border:2px solid #fff;border-radius:7px;display:grid;place-items:center;font-style:normal;font-size:13px}
+.in{padding:18px 16px 22px}
+.card{background:rgba(255,255,255,.82);border:2px solid var(--b4);border-radius:26px;padding:16px;margin-bottom:14px}
+.h{font-family:Jua,sans-serif;font-size:18px;color:var(--b);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.h .n{width:24px;height:24px;border-radius:50%;background:var(--b);color:#fff;font-family:Poppins;font-weight:700;font-size:12px;display:grid;place-items:center;flex:none}
+.h small{font-family:'Gowun Dodum';font-size:12px;color:var(--soft);margin-left:auto}
+.muted{color:var(--soft);font-size:13px}.note{font-size:13px;color:var(--soft);line-height:1.7}
+/* bases */
+.bases{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.base{border:2px solid var(--b4);background:#fff;border-radius:20px;padding:8px;cursor:pointer;text-align:center;font:inherit;color:var(--ink);transition:.15s;position:relative}
+.base .img{aspect-ratio:3/4;border-radius:14px;background:linear-gradient(180deg,#F2F6FE,#DCE7FA);display:grid;place-items:center;overflow:hidden}
+.base .img img{width:100%;height:100%;object-fit:cover}
+.base b{display:block;font-family:Jua,sans-serif;font-size:16px;margin-top:6px;color:var(--b)}
+.base span{font-size:12px;color:var(--soft)}
+.base.on{border-color:var(--b);box-shadow:0 0 0 3px rgba(61,111,214,.18)}
+.base.on:after{content:"✓";position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:50%;background:var(--b);color:#fff;font-weight:700;display:grid;place-items:center}
+/* packages */
+.pk{display:grid;gap:10px}
+.pk button{display:flex;align-items:center;gap:12px;border:2px solid var(--b4);background:#fff;border-radius:20px;padding:12px 14px;cursor:pointer;font:inherit;color:var(--ink);text-align:left}
+.pk button .nm{flex:1}
+.pk button b{display:block;font-family:Jua,sans-serif;font-size:18px;color:var(--b)}
+.pk button span{font-size:13px;color:var(--soft)}
+.pk button em{font-style:normal;font-family:Poppins;font-weight:700;font-size:17px;white-space:nowrap}
+.pk button.on{border-color:var(--b);background:linear-gradient(180deg,#fff,#E6EFFD);box-shadow:0 0 0 3px rgba(61,111,214,.15)}
+.pk button .badge{color:#fff;font-size:10px;background:var(--b)}
+.badge{display:inline-block;font-family:Poppins;font-weight:700;font-size:10px;letter-spacing:1px;color:#fff;background:var(--b2);border-radius:10px;padding:1px 8px;margin-left:6px;vertical-align:2px}
+/* options */
+.opt{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:2px dashed var(--b4)}
+.opt:last-child{border-bottom:0}
+.opt .nm{flex:1;font-size:15px}.opt .nm small{display:block;color:var(--soft);font-size:12px}
+.step{display:flex;align-items:center;gap:6px}
+.step button{width:32px;height:32px;border-radius:50%;border:2px solid var(--b3);background:#fff;color:var(--b);font-size:18px;font-weight:700;cursor:pointer;line-height:1}
+.step b{min-width:22px;text-align:center;font-family:Poppins}
+.tog{width:48px;height:28px;border-radius:14px;background:var(--b4);position:relative;cursor:pointer;border:0;flex:none}
+.tog:after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:.2s}
+.tog.on{background:var(--b)}.tog.on:after{left:23px}
+/* form */
+input.t,textarea.t{width:100%;font:inherit;font-size:16px;color:var(--ink);padding:12px 14px;border-radius:16px;border:2px solid var(--b4);background:#fff;outline:none;margin-bottom:8px}
+textarea.t{height:96px;resize:vertical}
+input.t:focus,textarea.t:focus{border-color:var(--b2)}
+label.f{display:block;font-size:13px;color:var(--soft);margin:2px 0 6px}
+/* checklist */
+.chk{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:2px dashed var(--b4);cursor:pointer;font-size:15px;line-height:1.55}
+.chk:last-child{border-bottom:0}
+.chk input{width:22px;height:22px;accent-color:var(--b);flex:none;margin-top:1px}
+/* summary */
+.sum li{display:flex;justify-content:space-between;gap:10px;padding:7px 0;font-size:15px;list-style:none;border-bottom:1px dashed var(--b4)}
+.sum li:last-child{border-bottom:0}
+.sum li b{font-family:Poppins;white-space:nowrap}
+.total{display:flex;justify-content:space-between;align-items:baseline;background:linear-gradient(90deg,#E3EDFF,#F3E8FF);border-radius:18px;padding:14px 16px;margin-top:10px}
+.total b{font-family:Poppins;font-size:26px;color:var(--b)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;cursor:pointer;font-family:Jua,sans-serif;font-size:18px;border-radius:999px;padding:14px 20px;color:#fff;background:linear-gradient(180deg,#6E98E8,#3D6FD6);box-shadow:0 6px 0 #2D57B0,0 10px 20px rgba(61,111,214,.3);width:100%}
+.btn:active{transform:translateY(3px);box-shadow:0 3px 0 #2D57B0}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.err{color:#C2456B;font-size:14px;margin-top:8px;min-height:1em;text-align:center}
+/* sticky total */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-top:2px solid var(--b4)}
+.dock .row{max-width:600px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.dock .row div{flex:1}.dock small{display:block;color:var(--soft);font-size:12px}
+.dock b{font-family:Poppins;font-size:22px;color:var(--b)}
+.dock button{width:auto;padding:12px 18px;font-size:16px}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--b);color:#fff;font-family:Jua,sans-serif;padding:12px 20px;border-radius:999px;opacity:0;transition:.25s;z-index:60;max-width:90vw;text-align:center;pointer-events:none}
+.toast.on{opacity:1}
+.copyarea{width:100%;height:220px;margin-top:10px;font-size:13px;border-radius:14px;border:2px solid var(--b4);padding:10px}
+footer{text-align:center;color:var(--soft);font-size:12px;margin-top:18px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="scal"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".45" stop-color="#CFE0FB" stop-opacity=".85"/><stop offset="1" stop-color="#7EA6EC" stop-opacity=".9"/></linearGradient>
+  <symbol id="heart" viewBox="0 0 200 180"><path d="M100 168C40 128 8 92 8 54 8 24 32 8 56 8c20 0 36 12 44 28 8-16 24-28 44-28 24 0 48 16 48 46 0 38-32 74-92 114Z" fill="url(#gl)" stroke="#fff" stroke-width="4"/><ellipse cx="54" cy="44" rx="20" ry="10" transform="rotate(-30 54 44)" fill="#fff"/></symbol>
+  <symbol id="star" viewBox="0 0 220 220"><path d="M110 22l26 64 68 4-53 43 17 67-58-38-58 38 17-67-53-43 68-4Z" fill="url(#gl)" stroke="url(#gl)" stroke-width="26" stroke-linejoin="round"/><ellipse cx="92" cy="78" rx="18" ry="8" transform="rotate(-25 92 78)" fill="#fff"/></symbol>
+  <symbol id="ani" viewBox="0 0 120 160"><path d="M30 30l10 30M90 30l-10 30" stroke="#fff" stroke-width="14" stroke-linecap="round" opacity=".9"/><circle cx="60" cy="70" r="30" fill="#fff" opacity=".9"/><path d="M22 152c4-36 18-52 38-52s34 16 38 52z" fill="#fff" opacity=".9"/></symbol>
+  <symbol id="sil" viewBox="0 0 120 160"><circle cx="60" cy="42" r="24" fill="#fff" opacity=".9"/><path d="M18 150c4-44 20-70 42-70s38 26 42 70z" fill="#fff" opacity=".9"/></symbol>
+</defs></svg>
+
+<div class="wrap">
+  <svg class="deco" style="left:-34px;top:20px;transform:rotate(-14deg)" width="110" height="99"><use href="#heart"/></svg>
+  <svg class="deco" style="right:-26px;top:40px;transform:rotate(16deg)" width="96" height="96"><use href="#star"/></svg>
+  <header>
+    <span class="chip">FIVEM SKIN SHOP</span>
+    <div class="logo">INISEOL</div>
+    <div class="sub">custom skin order</div>
+  </header>
+
+  <div class="win">
+    <div class="bar"><span class="t">♡ skin_order.exe</span><i>–</i><i>□</i><i>×</i></div>
+    <div class="in">
+
+      <div class="card">
+        <div class="h"><span class="n">1</span>베이스 선택</div>
+        <div class="bases" id="bases"></div>
+      </div>
+
+      <div class="card">
+        <div class="h"><span class="n">2</span>구성 선택 <small>각 3컬러 포함</small></div>
+        <div class="pk" id="pk"></div>
+      </div>
+
+      <div class="card">
+        <div class="h"><span class="n">3</span>추가 옵션</div>
+        <div id="opts"></div>
+        <div class="note" style="margin-top:8px">치장 · 커스텀 ACC는 난이도에 따라 금액이 추가될 수 있어요.</div>
+      </div>
+
+      <div class="card">
+        <div class="h"><span class="n">4</span>주문 정보</div>
+        <label class="f" for="nick">디스코드 닉네임 *</label>
+        <input class="t" id="nick" autocomplete="off" placeholder="예: 이니설">
+        <label class="f" for="server">사용할 서버</label>
+        <input class="t" id="server" autocomplete="off" placeholder="예: OO RP 서버">
+        <label class="f" for="concept">원하는 컨셉 · 분위기 *</label>
+        <textarea class="t" id="concept" placeholder="예: 청순한 분위기, 하늘색 계열 의상, 긴 웨이브 헤어"></textarea>
+        <label class="f" for="due">희망 완료일</label>
+        <input class="t" id="due" autocomplete="off" placeholder="예: 11월 20일까지">
+        <label class="f" for="etc">기타 요청사항</label>
+        <textarea class="t" id="etc" style="height:70px" placeholder="자유롭게 적어 주세요"></textarea>
+      </div>
+
+      <div class="card">
+        <div class="h"><span class="n">5</span>체크리스트 <small>모두 체크해 주세요</small></div>
+        <div id="checks"></div>
+      </div>
+
+      <div class="card">
+        <div class="h">🧾 주문 요약</div>
+        <ul class="sum" id="sum"></ul>
+        <div class="total"><span>예상 금액</span><b id="total"></b></div>
+        <div class="note" style="margin-top:8px">최종 금액은 상담 후 확정돼요. 협업 리소스를 쓰면 포팅비가 별도로 추가돼요.</div>
+        <div class="err" id="err"></div>
+        <button class="btn" id="copy" style="margin-top:6px">주문서 복사하기</button>
+        <div class="note" style="margin-top:10px;text-align:center">복사한 주문서를 디스코드 <b>주문티켓</b>에 붙여넣고, 참고 이미지를 함께 올려 주세요 ♡</div>
+      </div>
+
+    </div>
+  </div>
+  <footer>INISEOL CUSTOM SKIN · 주문 · 문의는 디스코드 주문티켓에서만 받아요</footer>
+</div>
+<div class="scal" style="transform:scaleY(-1)"></div>
+
+<div class="dock"><div class="row"><div><small id="dockinfo">예상 금액</small><b id="docktotal"></b></div><button class="btn" id="dockbtn">주문서 복사</button></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== 베이스 : 이미지와 이름은 나중에 여기만 바꾸면 돼요 ===== */
+const BASES = [
+  {id:'rp',  name:'RP TYPE',   desc:'사람 형태의 캐릭터', img:'', icon:'#sil'},
+  {id:'nrp', name:'N_RP TYPE', desc:'동물형 캐릭터',     img:'', icon:'#ani'},
+];
+/* ===== 가격표 ===== */
+const PACKAGES = [
+  {id:'basic', name:'기본 제작', comp:'헤어 4 · 의상 3 · 치장 2', price:450000, best:true},
+  {id:'a',     name:'구성 A',   comp:'헤어 2 · 의상 3 · 치장 2', price:350000},
+  {id:'b',     name:'구성 B',   comp:'헤어 1 · 의상 2 · 치장 1', price:250000},
+];
+const OPTIONS = [
+  {id:'hair',   name:'헤어 1개 추가',       price:30000, max:10},
+  {id:'outfit', name:'의상 1개 추가',       price:50000, max:10},
+  {id:'acc',    name:'치장 · 커스텀 ACC',   price:20000, max:10, from:true},
+  {id:'tattoo', name:'문신 추가',           price:20000, max:5},
+  {id:'color',  name:'색상 추가',           price:10000, max:20},
+];
+const CHECKS = [
+  '제작 안내와 가격표를 모두 읽었어요.',
+  '참고 이미지를 주문티켓에 함께 올릴게요.',
+  '입금 확인 후 작업이 시작되고, 제작 기간은 최소 2일 ~ 최대 7일이에요.',
+  '작업 시작 후에는 단순 변심이나 개인 서버 환경 문제로 환불할 수 없어요.',
+  '제작자 오류는 무료 A/S, 단순 변심 · 디자인 변경은 가격표 기준 비용이 발생해요.',
+  '제작물의 재배포 · 재판매 · 공유는 금지예요.',
+  '협업 제작자 리소스를 쓰면 포팅비가 별도로 추가돼요.',
+];
+/* ================================================================ */
+const $=s=>document.querySelector(s);
+const won=n=>n.toLocaleString('ko-KR')+'원';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const st={base:null, pk:'basic', opt:Object.fromEntries(OPTIONS.map(o=>[o.id,0])), chk:CHECKS.map(()=>false)};
+
+function renderBases(){
+  $('#bases').innerHTML=BASES.map(b=>`<button class="base${st.base===b.id?' on':''}" data-id="${b.id}">
+    <div class="img">${b.img?`<img src="${esc(b.img)}" alt="${esc(b.name)}">`:`<svg width="60%" height="60%"><use href="${b.icon}"/></svg>`}</div>
+    <b>${esc(b.name)}</b><span>${esc(b.desc)}</span></button>`).join('')+
+    `<button class="base${st.base==='custom'?' on':''}" data-id="custom" style="grid-column:1/-1"><b style="margin:4px 0">CUSTOM BASE</b><span>자체 제작 베이스 · 별도 문의</span></button>`;
+  $('#bases').querySelectorAll('.base').forEach(el=>el.onclick=()=>{ st.base=el.dataset.id; renderBases(); update(); });
+}
+function renderPk(){
+  $('#pk').innerHTML=PACKAGES.map(p=>`<button class="${st.pk===p.id?'on':''}" data-id="${p.id}"><div class="nm"><b>${p.name}${p.best?'<span class="badge">BEST</span>':''}</b><span>${p.comp}</span></div><em>${won(p.price)}</em></button>`).join('');
+  $('#pk').querySelectorAll('button').forEach(el=>el.onclick=()=>{ st.pk=el.dataset.id; renderPk(); update(); });
+}
+function renderOpts(){
+  $('#opts').innerHTML=OPTIONS.map(o=>`<div class="opt"><div class="nm">${o.name}<small>${won(o.price)}${o.from?'~':''} / 개</small></div>
+    <div class="step"><button data-m="${o.id}" aria-label="빼기">−</button><b id="q-${o.id}">${st.opt[o.id]}</b><button data-p="${o.id}" aria-label="더하기">+</button></div></div>`).join('');
+  $('#opts').querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{ const id=b.dataset.m; st.opt[id]=Math.max(0,st.opt[id]-1); $('#q-'+id).textContent=st.opt[id]; update(); });
+  $('#opts').querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{ const id=b.dataset.p, o=OPTIONS.find(x=>x.id===id); st.opt[id]=Math.min(o.max,st.opt[id]+1); $('#q-'+id).textContent=st.opt[id]; update(); });
+}
+function renderChecks(){
+  $('#checks').innerHTML=CHECKS.map((c,i)=>`<label class="chk"><input type="checkbox" data-i="${i}" ${st.chk[i]?'checked':''}><span>${c}</span></label>`).join('');
+  $('#checks').querySelectorAll('input').forEach(el=>el.onchange=()=>{ st.chk[+el.dataset.i]=el.checked; update(); });
+}
+function calc(){
+  const pk=PACKAGES.find(p=>p.id===st.pk); let total=pk.price; const lines=[];
+  OPTIONS.forEach(o=>{ const q=st.opt[o.id]; if(q){ total+=o.price*q; lines.push([`${o.name} × ${q}`, o.price*q, o.from]); } });
+  return {pk,total,lines,from:lines.some(l=>l[2])};
+}
+function baseName(){ if(st.base==='custom') return 'CUSTOM BASE (자체 제작 베이스 · 별도 문의)'; const b=BASES.find(x=>x.id===st.base); return b?`${b.name} (${b.desc})`:'선택 안 함'; }
+function update(){
+  const c=calc();
+  $('#sum').innerHTML=`<li><span>베이스</span><b style="font-family:inherit">${esc(baseName())}</b></li>
+    <li><span>${c.pk.name} <span class="muted">(${c.pk.comp})</span></span><b>${won(c.pk.price)}</b></li>`+
+    c.lines.map(l=>`<li><span>${l[0]}</span><b>${won(l[1])}${l[2]?'~':''}</b></li>`).join('');
+  const t=won(c.total)+(c.from?'~':'');
+  $('#total').textContent=t; $('#docktotal').textContent=t;
+  const left=st.chk.filter(x=>!x).length;
+  $('#dockinfo').textContent = left ? `예상 금액 · 체크리스트 ${left}개 남음` : '예상 금액 · 준비 완료!';
+}
+function orderText(){
+  const c=calc(), v=id=>$('#'+id).value.trim();
+  let t=`🎐 𝑰𝑵𝑰𝑺𝑬𝑶𝑳 개인스킨 주문서\n\n닉네임 : ${v('nick')}\n`;
+  if(v('server')) t+=`사용 서버 : ${v('server')}\n`;
+  t+=`베이스 : ${baseName()}\n구성 : ${c.pk.name} (${c.pk.comp}, 각 3컬러) · ${won(c.pk.price)}\n`;
+  t+= c.lines.length ? `추가 옵션 :\n${c.lines.map(l=>`・ ${l[0]} · ${won(l[1])}${l[2]?'~':''}`).join('\n')}\n` : '추가 옵션 : 없음\n';
+  t+=`예상 금액 : ${won(c.total)}${c.from?'~':''}\n\n컨셉 · 분위기 :\n${v('concept')}\n`;
+  if(v('due')) t+=`\n희망 완료일 : ${v('due')}\n`;
+  if(v('etc')) t+=`\n기타 요청사항 :\n${v('etc')}\n`;
+  t+=`\n✅ 체크리스트 ${CHECKS.length}개 모두 확인했어요.\n※ 참고 이미지는 이 메시지 아래에 올릴게요.`;
+  t+=`\n\n주문 코드 (운영진 확인용)\n${orderCode()}`;
+  return t;
+}
+function fnv(str){let h=0x811c9dc5;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}return h.toString(36);}
+function b64enc(str){const u=new TextEncoder().encode(str);let bin='';u.forEach(b=>bin+=String.fromCharCode(b));return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+let orderId=null;
+function orderCode(){
+  const c=calc(), v=id=>$('#'+id).value.trim();
+  if(!orderId) orderId=Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+  const o={v:1,k:'order',id:orderId,t:Math.floor(Date.now()/1000),nick:v('nick'),server:v('server'),base:baseName(),
+    pk:c.pk.name,comp:c.pk.comp,pkp:c.pk.price,opts:c.lines.map(l=>[l[0],l[1],l[2]?1:0]),total:c.total,from:c.from?1:0,
+    concept:v('concept'),due:v('due'),etc:v('etc')};
+  const body=JSON.stringify(o); return 'ORD-'+b64enc(body+'|'+fnv(body));
+}
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(toast._t); toast._t=setTimeout(()=>t.classList.remove('on'),2200); }
+async function doCopy(){
+  $('#err').textContent='';
+  const miss=[];
+  if(!st.base) miss.push('베이스');
+  if(!$('#nick').value.trim()) miss.push('닉네임');
+  if(!$('#concept').value.trim()) miss.push('컨셉 · 분위기');
+  const left=st.chk.filter(x=>!x).length; if(left) miss.push(`체크리스트 ${left}개`);
+  if(miss.length){ const m=`아직 안 된 항목 : ${miss.join(', ')}`; $('#err').textContent=m; toast(m);
+    const target = !st.base?'#bases':!$('#nick').value.trim()?'#nick':!$('#concept').value.trim()?'#concept':'#checks';
+    $(target).scrollIntoView({behavior:'smooth',block:'center'}); return; }
+  const text=orderText();
+  try{ await navigator.clipboard.writeText(text); toast('주문서를 복사했어요! 주문티켓에 붙여넣어 주세요 ♡'); }
+  catch(e){ let ta=$('#copyarea'); if(!ta){ ta=document.createElement('textarea'); ta.id='copyarea'; ta.className='copyarea'; ta.readOnly=true; $('#copy').after(ta); }
+    ta.value=text; ta.scrollIntoView({behavior:'smooth',block:'center'}); ta.select(); toast('아래 글을 길게 눌러 전체 복사해 주세요'); }
+}
+$('#copy').onclick=doCopy; $('#dockbtn').onclick=doCopy;
+renderBases(); renderPk(); renderOpts(); renderChecks(); update();
+</script>
+</body>
+</html>
